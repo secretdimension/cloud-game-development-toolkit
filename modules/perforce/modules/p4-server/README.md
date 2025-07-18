@@ -44,7 +44,7 @@ If you do not provide these the module will create a random Super User and creat
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | 5.97.0 |
 | <a name="requirement_awscc"></a> [awscc](#requirement\_awscc) | 1.34.0 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | 2.5.2 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | 2.5.3 |
 | <a name="requirement_netapp-ontap"></a> [netapp-ontap](#requirement\_netapp-ontap) | 2.1.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | 3.2.4 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.7.1 |
