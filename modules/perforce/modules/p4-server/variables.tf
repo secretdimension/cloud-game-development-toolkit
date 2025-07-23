@@ -210,6 +210,11 @@ variable "vpc_id" {
   description = "The VPC where P4 Server should be deployed"
 }
 
+variable "instance_az" {
+  type        = string
+  description = "The Availability Zone where the P4 Server instance will be deployed."
+}
+
 variable "instance_subnet_id" {
   type        = string
   description = "The subnet where the P4 Server instance will be deployed."

@@ -208,6 +208,7 @@ variable "p4_server_config" {
     logs_volume_size     = optional(number, 32)
 
     # Networking & Security
+    instance_az              = optional(string, null)
     instance_subnet_id       = optional(string, null)
     instance_private_ip      = optional(string, null)
     create_default_sg        = optional(bool, true)
@@ -276,6 +277,8 @@ variable "p4_server_config" {
 
 
     # - Networking & Security -
+    instance_az: "The Availability Zone where the P4 Server instance will be deployed."
+
     instance_subnet_id: "The subnet where the P4 Server instance will be deployed."
 
     instance_private_ip: "The private IP address to assign to the P4 Server."

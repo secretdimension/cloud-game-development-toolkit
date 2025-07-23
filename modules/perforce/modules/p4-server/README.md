@@ -44,7 +44,7 @@ If you do not provide these the module will create a random Super User and creat
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | 5.97.0 |
 | <a name="requirement_awscc"></a> [awscc](#requirement\_awscc) | 1.34.0 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | 2.5.2 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | 2.5.3 |
 | <a name="requirement_netapp-ontap"></a> [netapp-ontap](#requirement\_netapp-ontap) | 2.1.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | 3.2.4 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.7.1 |
@@ -128,6 +128,7 @@ No modules.
 | <a name="input_fsxn_svm_name"></a> [fsxn\_svm\_name](#input\_fsxn\_svm\_name) | FSxN storage virtual machine name | `string` | `null` | no |
 | <a name="input_fully_qualified_domain_name"></a> [fully\_qualified\_domain\_name](#input\_fully\_qualified\_domain\_name) | The fully qualified domain name where P4 Server will be available. This is used to generate self-signed certificates on the P4 Server. | `string` | `null` | no |
 | <a name="input_instance_architecture"></a> [instance\_architecture](#input\_instance\_architecture) | The architecture of the P4 Server instance. Allowed values are 'arm64' or 'x86\_64'. | `string` | `"x86_64"` | no |
+| <a name="input_instance_az"></a> [instance\_az](#input\_instance\_az) | The Availability Zone where the P4 Server instance will be deployed. | `string` | n/a | yes |
 | <a name="input_instance_private_ip"></a> [instance\_private\_ip](#input\_instance\_private\_ip) | The private IP address to assign to the P4 Server. | `string` | `null` | no |
 | <a name="input_instance_subnet_id"></a> [instance\_subnet\_id](#input\_instance\_subnet\_id) | The subnet where the P4 Server instance will be deployed. | `string` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The instance type for Perforce P4 Server. Defaults to c6g.large. | `string` | `"c6i.large"` | no |

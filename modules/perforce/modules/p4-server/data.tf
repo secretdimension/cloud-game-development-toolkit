@@ -1,6 +1,7 @@
 # Lookup of subnet that module creates
 data "aws_subnet" "instance_subnet" {
-  id = var.instance_subnet_id
+  count = var.instance_az == null ? 1 : 0
+  id    = var.instance_subnet_id
 }
 
 # Conditionally fetch exist P4 Server AMI that unless using the auto-generated AMI

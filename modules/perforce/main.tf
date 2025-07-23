@@ -50,6 +50,7 @@ module "p4_server" {
 
   # Networking & Security
   vpc_id                         = var.vpc_id
+  instance_az                    = var.p4_server_config.instance_az
   instance_subnet_id             = var.p4_server_config.instance_subnet_id
   instance_private_ip            = var.p4_server_config.instance_private_ip
   create_default_sg              = var.p4_server_config.create_default_sg
