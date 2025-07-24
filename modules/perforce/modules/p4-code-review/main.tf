@@ -99,6 +99,10 @@ resource "aws_ecs_task_definition" "task_definition" {
         ]
         environment = [
           {
+            name  = "P4CHARSET"
+            value = "auto"
+          },
+          {
             name  = "P4D_PORT",
             value = var.p4d_port
           },
