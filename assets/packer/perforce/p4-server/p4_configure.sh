@@ -541,7 +541,7 @@ perform_operations() {
 
 
 # Maximum number of attempts (added due to terraform not mounting EBS fast enough at instance boot)
-MAX_ATTEMPTS=3
+MAX_ATTEMPTS=100
 
 # Counter for attempts
 attempt=1
