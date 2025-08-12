@@ -66,6 +66,7 @@ No modules.
 | [aws_iam_role.unreal_horde_task_execution_role](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.unreal_horde_default_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.unreal_horde_elasticache_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.unreal_horde_s3_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.unreal_horde_secrets_manager_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.unreal_horde_task_execution_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachments_exclusive.unreal_horde_agent_policy_attachments](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachments_exclusive) | resource |
@@ -180,6 +181,7 @@ No modules.
 | <a name="input_enable_unreal_horde_alb_deletion_protection"></a> [enable\_unreal\_horde\_alb\_deletion\_protection](#input\_enable\_unreal\_horde\_alb\_deletion\_protection) | Enables deletion protection for the Unreal Horde ALB. Defaults to true. | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The current environment (e.g. Development, Staging, Production, etc.). This will tag ressources and set ASPNETCORE\_ENVIRONMENT variable. | `string` | `"Development"` | no |
 | <a name="input_existing_security_groups"></a> [existing\_security\_groups](#input\_existing\_security\_groups) | A list of existing security group IDs to attach to the Unreal Horde load balancer. | `list(string)` | `[]` | no |
+| <a name="input_extra_server_config"></a> [extra\_server\_config](#input\_extra\_server\_config) | Extra json to include in the server.json config file | `map(any)` | `{}` | no |
 | <a name="input_fully_qualified_domain_name"></a> [fully\_qualified\_domain\_name](#input\_fully\_qualified\_domain\_name) | The fully qualified domain name where your Unreal Engine Horde server will be available. This agents will use this to enroll. | `string` | n/a | yes |
 | <a name="input_github_credentials_secret_arn"></a> [github\_credentials\_secret\_arn](#input\_github\_credentials\_secret\_arn) | A secret containing the Github username and password with permissions to the EpicGames organization. | `string` | `null` | no |
 | <a name="input_image"></a> [image](#input\_image) | The Horde Server image to use in the ECS service. | `string` | `"ghcr.io/epicgames/horde-server:latest-bundled"` | no |
@@ -206,6 +208,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_agent_default_role"></a> [agent\_default\_role](#output\_agent\_default\_role) | n/a |
 | <a name="output_agent_security_group_id"></a> [agent\_security\_group\_id](#output\_agent\_security\_group\_id) | n/a |
 | <a name="output_external_alb_dns_name"></a> [external\_alb\_dns\_name](#output\_external\_alb\_dns\_name) | n/a |
 | <a name="output_external_alb_sg_id"></a> [external\_alb\_sg\_id](#output\_external\_alb\_sg\_id) | n/a |
@@ -213,5 +216,7 @@ No modules.
 | <a name="output_internal_alb_dns_name"></a> [internal\_alb\_dns\_name](#output\_internal\_alb\_dns\_name) | n/a |
 | <a name="output_internal_alb_sg_id"></a> [internal\_alb\_sg\_id](#output\_internal\_alb\_sg\_id) | n/a |
 | <a name="output_internal_alb_zone_id"></a> [internal\_alb\_zone\_id](#output\_internal\_alb\_zone\_id) | n/a |
+| <a name="output_server_task_default_role"></a> [server\_task\_default\_role](#output\_server\_task\_default\_role) | n/a |
+| <a name="output_server_task_execution_role"></a> [server\_task\_execution\_role](#output\_server\_task\_execution\_role) | n/a |
 | <a name="output_service_security_group_id"></a> [service\_security\_group\_id](#output\_service\_security\_group\_id) | n/a |
 <!-- END_TF_DOCS -->
