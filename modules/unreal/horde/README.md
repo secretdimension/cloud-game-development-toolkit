@@ -139,6 +139,7 @@ No modules.
 | <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | The authentication method for the Horde server. | `string` | `null` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | The TLS certificate ARN for the Unreal Horde load balancer. | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the cluster to deploy the Unreal Horde into. Defaults to null and a cluster will be created. | `string` | `null` | no |
+| <a name="input_config_path"></a> [config\_path](#input\_config\_path) | The path to your config file in Perforce | `string` | `null` | no |
 | <a name="input_container_api_port"></a> [container\_api\_port](#input\_container\_api\_port) | The container port for the Unreal Horde web server. | `number` | `5000` | no |
 | <a name="input_container_cpu"></a> [container\_cpu](#input\_container\_cpu) | The CPU allotment for the Unreal Horde container. | `number` | `1024` | no |
 | <a name="input_container_grpc_port"></a> [container\_grpc\_port](#input\_container\_grpc\_port) | The container port for the Unreal Horde GRPC channel. | `number` | `5002` | no |
