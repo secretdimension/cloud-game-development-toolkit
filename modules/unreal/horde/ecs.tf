@@ -64,29 +64,20 @@ resource "aws_ecs_task_definition" "unreal_horde_task_definition" {
         startPeriod = 10
         timeout     = 5
       }
-      environment = concat([
-        {
-          name  = "Horde__databaseConnectionString"
-          value = local.database_connection_string
-        },
-        {
-          name  = "Horde__redisConnectionConfig"
-          value = local.redis_connection_config
-        },
-        {
-          name  = "Horde__databasePublicCert",
-          value = "/app/config/global-bundle.pem"
-        },
-        {
-          name  = "Horde__jwtIssuer",
-          value = "https://${var.fully_qualified_domain_name}"
-        },
+      environment = [
         {
           name  = "P4TRUST"
           value = "/app/config/.p4trust"
         },
-      ], local.horde_service_env)
-      secrets = local.horde_service_secrets
+        {
+          name  = "Horde__DataDir"
+          value = "/app/config"
+        },
+        {
+          name  = "ASPNETCORE_ENVIRONMENT"
+          value = var.environment
+        }
+      ]
       logConfiguration = {
         logDriver = "awslogs"
         options = {
@@ -94,16 +85,16 @@ resource "aws_ecs_task_definition" "unreal_horde_task_definition" {
           awslogs-region        = data.aws_region.current.name
           awslogs-stream-prefix = "[APP]"
         }
-      },
+      }
       mountPoints = [
         {
           sourceVolume  = "unreal-horde-config",
           containerPath = "/app/config"
         }
-      ],
+      ]
       dependsOn = concat(
         [{
-          containerName = "unreal-horde-docdb-cert",
+          containerName = "unreal-horde-config"
           condition     = "SUCCESS"
         }],
         local.need_p4_trust ? [{
@@ -113,10 +104,110 @@ resource "aws_ecs_task_definition" "unreal_horde_task_definition" {
       )
     },
     {
-      name                     = "unreal-horde-docdb-cert",
-      image                    = "bash",
-      essential                = false
-      command                  = ["wget", "https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem", "-P", "/app/config/"]
+      name      = "unreal-horde-config",
+      image     = "registry.gitlab.com/gitlab-ci-utils/curl-jq:latest"
+      essential = false
+      command = ["/bin/bash", "-exc",
+        <<-EOF
+        mkdir -p /app/config/
+
+        # Pull the PEM bundle required to connect to DocDB
+        wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -P /app/config/
+
+        # Create the global config
+        jq -n '{
+          Version: 2,
+
+          %{if var.config_path != null}
+          Include: [
+            { Path: "${var.config_path}" }
+          ],
+          %{endif}
+
+          Plugins: {
+            Build: {
+              %{if var.p4_port != null && var.p4_super_user_username_secret_arn != null && var.p4_super_user_password_secret_arn != null}
+              PerforceClusters: [{
+                Name: "Default",
+                CanImpersonate: true,
+                SupportsPartitionedWorkspaces: true,
+                Servers: [{
+                  ServerAndPort: "${var.p4_port}",
+                }],
+                Credentials: [{
+                  UserName: env.P4_SUPER_USERNAME,
+                  Password: env.P4_SUPER_PASSWORD,
+                }],
+              }],
+              %{endif}
+            },
+          },
+
+          Parameters: {
+            ugs: {
+              %{if var.p4_port != null}
+              defaultPerforceServer: "${var.p4_port}",
+              %{endif}
+            },
+          },
+        } + ${jsonencode(var.extra_global_config)}' > /app/config/globals.json
+
+        # Create the server config
+        jq -n '{
+          Horde: {
+            ConfigPath: "/app/config/globals.json",
+            ServerUrl: "https://${var.fully_qualified_domain_name}",
+            DashboardUrl: "https://${var.fully_qualified_domain_name}",
+
+            MongoPublicCertificate: "/app/config/global-bundle.pem",
+            MongoConnectionString: "${local.database_connection_string}",
+            RedisConnectionString: "${local.redis_connection_config}",
+
+            EnableDebugEndpoints: ${var.debug},
+            ForceConfigUpdateOnStartup: true,
+
+            %{for key, value in local.server_config}
+            %{if value != null}
+            ${key}: "${value}",
+            %{endif}
+            %{endfor}
+
+            Plugins: {
+              Build: {
+                UseLocalPerforceEnv: false,
+                Perforce: [{
+                  %{if var.p4_port != null && var.p4_super_user_username_secret_arn != null && var.p4_super_user_password_secret_arn != null}
+                  ServerAndPort: "${var.p4_port}",
+                  Credentials: {
+                    UserName: env.P4_SUPER_USERNAME,
+                    Password: env.P4_SUPER_PASSWORD,
+                  },
+                  %{endif}
+                }],
+              },
+              Compute: {
+                WithAws: true,
+                AutoEnrollAgents: ${var.enable_new_agents_by_default},
+              }
+            },
+          },
+
+          AWS: {
+            Region: "${data.aws_region.current.region}",
+          },
+        } + ${jsonencode(var.extra_server_config)}' > /app/config/server.json
+        EOF
+      ]
+      secrets = [for config in [
+        {
+          name      = "P4_SUPER_USERNAME"
+          valueFrom = var.p4_super_user_username_secret_arn
+        },
+        {
+          name      = "P4_SUPER_PASSWORD"
+          valueFrom = var.p4_super_user_password_secret_arn
+        },
+      ] : config.valueFrom != null ? config : null]
       readonly_root_filesystem = false
       mountPoints = [
         {
@@ -129,7 +220,7 @@ resource "aws_ecs_task_definition" "unreal_horde_task_definition" {
         options = {
           awslogs-group         = aws_cloudwatch_log_group.unreal_horde_log_group.name
           awslogs-region        = data.aws_region.current.name
-          awslogs-stream-prefix = "[DOCDB CERT]"
+          awslogs-stream-prefix = "[P4CONFIG]"
         }
       },
     }],
@@ -168,7 +259,7 @@ resource "aws_ecs_task_definition" "unreal_horde_task_definition" {
           awslogs-stream-prefix = "[P4TRUST]"
         }
       },
-    }] : []
+    }] : [],
   ))
   tags = {
     Name = var.name
