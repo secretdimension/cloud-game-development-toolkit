@@ -150,7 +150,7 @@ resource "aws_ecs_task_definition" "unreal_horde_task_definition" {
               %{endif}
             },
           },
-        } + ${jsonencode(var.extra_global_config)}' > /app/config/globals.json
+        } * ${jsonencode(var.extra_global_config)}' > /app/config/globals.json
 
         # Create the server config
         jq -n '{
@@ -195,7 +195,7 @@ resource "aws_ecs_task_definition" "unreal_horde_task_definition" {
           AWS: {
             Region: "${data.aws_region.current.region}",
           },
-        } + ${jsonencode(var.extra_server_config)}' > /app/config/server.json
+        } * ${jsonencode(var.extra_server_config)}' > /app/config/server.json
         EOF
       ]
       secrets = [for config in [
@@ -226,16 +226,26 @@ resource "aws_ecs_task_definition" "unreal_horde_task_definition" {
     }],
     local.need_p4_trust ? [{
       name      = "unreal-horde-p4-trust",
-      image     = "ubuntu:noble"
+      image     = "public.ecr.aws/ubuntu/ubuntu:noble"
       essential = false
       command = ["bash", "-exc", <<-EOF
         apt-get update
-        apt-get install -y curl gnupg
+        apt-get install -y curl gnupg unzip
         curl -fs https://package.perforce.com/perforce.pubkey | gpg --dearmor -o /usr/share/keyrings/perforce.gpg
         echo "deb [signed-by=/usr/share/keyrings/perforce.gpg] https://package.perforce.com/apt/ubuntu noble release" > /etc/apt/sources.list.d/perforce.list
         apt-get update
         apt-get install -y p4-cli
         p4 -p ${var.p4_port} trust -y
+
+        # Upload the p4trust file for agents to pull
+        %{if length(var.agents) > 0}
+        curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
+        unzip awscliv2.zip
+        ./aws/install
+        rm -rf awscliv2.zip aws
+
+        aws s3 cp $P4TRUST s3://${aws_s3_bucket.ansible_playbooks[0].id}/agent/.p4trust
+        %{endif}
       EOF
       ]
       readonly_root_filesystem = false
