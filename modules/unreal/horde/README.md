@@ -57,19 +57,24 @@ No modules.
 | [aws_elasticache_serverless_cache.horde](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/elasticache_serverless_cache) | resource |
 | [aws_elasticache_subnet_group.horde](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/elasticache_subnet_group) | resource |
 | [aws_iam_instance_profile.unreal_horde_agent_instance_profile](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_instance_profile) | resource |
+| [aws_iam_policy.horde_agents_ec2_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.horde_agents_s3_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.unreal_horde_default_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.unreal_horde_elasticache_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.unreal_horde_recycle_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.unreal_horde_secrets_manager_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_policy) | resource |
 | [aws_iam_role.unreal_horde_agent_default_role](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.unreal_horde_default_role](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.unreal_horde_task_execution_role](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.unreal_horde_agent_policy_attachments](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.unreal_horde_agents_ec2_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.unreal_horde_agents_s3_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.unreal_horde_default_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.unreal_horde_elasticache_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.unreal_horde_recycle_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.unreal_horde_s3_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.unreal_horde_secrets_manager_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.unreal_horde_task_execution_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachments_exclusive.unreal_horde_agent_policy_attachments](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/iam_role_policy_attachments_exclusive) | resource |
 | [aws_launch_template.unreal_horde_agent_template](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/launch_template) | resource |
 | [aws_lb.unreal_horde_external_alb](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb) | resource |
 | [aws_lb.unreal_horde_internal_alb](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb) | resource |
@@ -126,14 +131,17 @@ No modules.
 | [random_string.unreal_horde](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/string) | resource |
 | [random_string.unreal_horde_alb_access_logs_bucket_suffix](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/string) | resource |
 | [random_string.unreal_horde_ansible_playbooks_bucket_suffix](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/string) | resource |
+| [aws_ami.unreal_horde_agent_ami](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/ami) | data source |
 | [aws_ecs_cluster.unreal_horde_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/ecs_cluster) | data source |
 | [aws_elb_service_account.main](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/elb_service_account) | data source |
 | [aws_iam_policy_document.access_logs_bucket_alb_write](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ec2_trust_relationship](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ecs_tasks_trust_relationship](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.horde_agents_ec2_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.horde_agents_s3_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.unreal_horde_default_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.unreal_horde_elasticache_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.unreal_horde_recycle_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.unreal_horde_secrets_manager_policy](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/data-sources/region) | data source |
 
@@ -144,7 +152,7 @@ No modules.
 | <a name="input_admin_claim_type"></a> [admin\_claim\_type](#input\_admin\_claim\_type) | The claim type for administrators. | `string` | `null` | no |
 | <a name="input_admin_claim_value"></a> [admin\_claim\_value](#input\_admin\_claim\_value) | The claim value for administrators. | `string` | `null` | no |
 | <a name="input_agent_dotnet_runtime_version"></a> [agent\_dotnet\_runtime\_version](#input\_agent\_dotnet\_runtime\_version) | The dotnet-runtime-{} package to install (see your engine version's release notes for supported version) | `string` | `"6.0"` | no |
-| <a name="input_agents"></a> [agents](#input\_agents) | Configures autoscaling groups to be used as build agents by Unreal Engine Horde. | <pre>map(object({<br/>    ami           = string<br/>    instance_type = string<br/>    block_device_mappings = list(<br/>      object({<br/>        device_name = string<br/>        ebs = object({<br/>          volume_size = number<br/>        })<br/>      })<br/>    )<br/>    min_size = optional(number, 0)<br/>    max_size = optional(number, 1)<br/>  }))</pre> | `{}` | no |
+| <a name="input_agents"></a> [agents](#input\_agents) | Configures autoscaling groups to be used as build agents by Unreal Engine Horde. | <pre>map(object({<br/>    ami             = string<br/>    instance_type   = string<br/>    horde_pool_name = optional(string)<br/>    block_device_mappings = list(<br/>      object({<br/>        device_name = string<br/>        ebs = object({<br/>          volume_size = number<br/>        })<br/>      })<br/>    )<br/>    min_size = optional(number, 0)<br/>    max_size = optional(number, 1)<br/>  }))</pre> | `{}` | no |
 | <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | The authentication method for the Horde server. | `string` | `null` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | The TLS certificate ARN for the Unreal Horde load balancer. | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the cluster to deploy the Unreal Horde into. Defaults to null and a cluster will be created. | `string` | `null` | no |
@@ -158,6 +166,7 @@ No modules.
 | <a name="input_create_internal_alb"></a> [create\_internal\_alb](#input\_create\_internal\_alb) | Set this flag to true to create an internal load balancer for Unreal Horde. | `bool` | `true` | no |
 | <a name="input_create_unreal_horde_default_policy"></a> [create\_unreal\_horde\_default\_policy](#input\_create\_unreal\_horde\_default\_policy) | Optional creation of Unreal Horde default IAM Policy. Default is set to true. | `bool` | `true` | no |
 | <a name="input_create_unreal_horde_default_role"></a> [create\_unreal\_horde\_default\_role](#input\_create\_unreal\_horde\_default\_role) | Optional creation of Unreal Horde default IAM Role. Default is set to true. | `bool` | `true` | no |
+| <a name="input_create_unreal_horde_recycle_policy"></a> [create\_unreal\_horde\_recycle\_policy](#input\_create\_unreal\_horde\_recycle\_policy) | Optional creation of Unreal Horde IAM Policy allowing usage of the AwsReuse/AwsRecycle fleet manager. | `bool` | `false` | no |
 | <a name="input_custom_cache_connection_config"></a> [custom\_cache\_connection\_config](#input\_custom\_cache\_connection\_config) | The redis-compatible connection configuration that Horde should use. | `string` | `null` | no |
 | <a name="input_custom_unreal_horde_role"></a> [custom\_unreal\_horde\_role](#input\_custom\_unreal\_horde\_role) | ARN of the custom IAM Role you wish to use with Unreal Horde. | `string` | `null` | no |
 | <a name="input_database_connection_string"></a> [database\_connection\_string](#input\_database\_connection\_string) | The database connection string that Horde should use. | `string` | `null` | no |
