@@ -77,10 +77,14 @@ No modules.
 | [aws_lb_listener.unreal_horde_external_alb_https_listener](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_listener) | resource |
 | [aws_lb_listener.unreal_horde_internal_alb_http_listener](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_listener) | resource |
 | [aws_lb_listener.unreal_horde_internal_alb_https_listener](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_listener) | resource |
+| [aws_lb_listener_rule.unreal_horde_external_alb_dex_rule](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_listener_rule) | resource |
 | [aws_lb_listener_rule.unreal_horde_external_alb_grpc_rule](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_listener_rule) | resource |
+| [aws_lb_listener_rule.unreal_horde_internal_alb_dex_rule](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_listener_rule) | resource |
 | [aws_lb_listener_rule.unreal_horde_internal_alb_grpc_rule](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_listener_rule) | resource |
 | [aws_lb_target_group.unreal_horde_api_target_group_external](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_target_group) | resource |
 | [aws_lb_target_group.unreal_horde_api_target_group_internal](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_target_group) | resource |
+| [aws_lb_target_group.unreal_horde_dex_target_group_external](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_target_group) | resource |
+| [aws_lb_target_group.unreal_horde_dex_target_group_internal](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_target_group) | resource |
 | [aws_lb_target_group.unreal_horde_grpc_target_group_external](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_target_group) | resource |
 | [aws_lb_target_group.unreal_horde_grpc_target_group_internal](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/lb_target_group) | resource |
 | [aws_s3_bucket.ansible_playbooks](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/s3_bucket) | resource |
@@ -105,6 +109,7 @@ No modules.
 | [aws_vpc_security_group_egress_rule.unreal_horde_external_alb_outbound_service_api](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_egress_rule) | resource |
 | [aws_vpc_security_group_egress_rule.unreal_horde_external_alb_outbound_service_grpc](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_egress_rule) | resource |
 | [aws_vpc_security_group_egress_rule.unreal_horde_internal_alb_outbound_service_api](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_egress_rule) | resource |
+| [aws_vpc_security_group_egress_rule.unreal_horde_internal_alb_outbound_service_dex](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_egress_rule) | resource |
 | [aws_vpc_security_group_egress_rule.unreal_horde_internal_alb_outbound_service_grpc](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_egress_rule) | resource |
 | [aws_vpc_security_group_egress_rule.unreal_horde_outbound_ipv4](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_egress_rule) | resource |
 | [aws_vpc_security_group_egress_rule.unreal_horde_outbound_ipv6](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_egress_rule) | resource |
@@ -112,8 +117,10 @@ No modules.
 | [aws_vpc_security_group_ingress_rule.unreal_horde_docdb_ingress](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.unreal_horde_elasticache_ingress](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.unreal_horde_inbound_external_alb_api](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_ingress_rule) | resource |
+| [aws_vpc_security_group_ingress_rule.unreal_horde_inbound_external_alb_dex](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.unreal_horde_inbound_external_alb_grpc](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.unreal_horde_inbound_internal_alb_api](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_ingress_rule) | resource |
+| [aws_vpc_security_group_ingress_rule.unreal_horde_inbound_internal_alb_dex](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.unreal_horde_inbound_internal_alb_grpc](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_vpc_security_group_ingress_rule.unreal_horde_service_inbound_agents](https://registry.terraform.io/providers/hashicorp/aws/6.6.0/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [random_string.unreal_horde](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/string) | resource |
@@ -137,7 +144,7 @@ No modules.
 | <a name="input_admin_claim_type"></a> [admin\_claim\_type](#input\_admin\_claim\_type) | The claim type for administrators. | `string` | `null` | no |
 | <a name="input_admin_claim_value"></a> [admin\_claim\_value](#input\_admin\_claim\_value) | The claim value for administrators. | `string` | `null` | no |
 | <a name="input_agent_dotnet_runtime_version"></a> [agent\_dotnet\_runtime\_version](#input\_agent\_dotnet\_runtime\_version) | The dotnet-runtime-{} package to install (see your engine version's release notes for supported version) | `string` | `"6.0"` | no |
-| <a name="input_agents"></a> [agents](#input\_agents) | Configures autoscaling groups to be used as build agents by Unreal Engine Horde. | <pre>map(object({<br>    ami           = string<br>    instance_type = string<br>    block_device_mappings = list(<br>      object({<br>        device_name = string<br>        ebs = object({<br>          volume_size = number<br>        })<br>      })<br>    )<br>    min_size = optional(number, 0)<br>    max_size = optional(number, 1)<br>  }))</pre> | `{}` | no |
+| <a name="input_agents"></a> [agents](#input\_agents) | Configures autoscaling groups to be used as build agents by Unreal Engine Horde. | <pre>map(object({<br/>    ami           = string<br/>    instance_type = string<br/>    block_device_mappings = list(<br/>      object({<br/>        device_name = string<br/>        ebs = object({<br/>          volume_size = number<br/>        })<br/>      })<br/>    )<br/>    min_size = optional(number, 0)<br/>    max_size = optional(number, 1)<br/>  }))</pre> | `{}` | no |
 | <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | The authentication method for the Horde server. | `string` | `null` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | The TLS certificate ARN for the Unreal Horde load balancer. | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the cluster to deploy the Unreal Horde into. Defaults to null and a cluster will be created. | `string` | `null` | no |
@@ -155,7 +162,13 @@ No modules.
 | <a name="input_custom_unreal_horde_role"></a> [custom\_unreal\_horde\_role](#input\_custom\_unreal\_horde\_role) | ARN of the custom IAM Role you wish to use with Unreal Horde. | `string` | `null` | no |
 | <a name="input_database_connection_string"></a> [database\_connection\_string](#input\_database\_connection\_string) | The database connection string that Horde should use. | `string` | `null` | no |
 | <a name="input_debug"></a> [debug](#input\_debug) | Set this flag to enable ECS execute permissions on the Unreal Horde container and force new service deployments on Terraform apply. | `bool` | `false` | no |
+| <a name="input_deploy_dex"></a> [deploy\_dex](#input\_deploy\_dex) | Set this flag to deploy dex and use it for authentication | `bool` | `false` | no |
 | <a name="input_desired_container_count"></a> [desired\_container\_count](#input\_desired\_container\_count) | The desired number of containers running Unreal Horde. | `number` | `1` | no |
+| <a name="input_dex_auth_secret_arn"></a> [dex\_auth\_secret\_arn](#input\_dex\_auth\_secret\_arn) | The secret containing the dex auth config json | `string` | `null` | no |
+| <a name="input_dex_connectors"></a> [dex\_connectors](#input\_dex\_connectors) | The connector to use for dex auth | <pre>list(object({<br/>    type   = string<br/>    id     = string<br/>    name   = string<br/>    config = any<br/>  }))</pre> | `null` | no |
+| <a name="input_dex_container_name"></a> [dex\_container\_name](#input\_dex\_container\_name) | The name of the dex containerd | `string` | `"unreal-horde-dex"` | no |
+| <a name="input_dex_container_port"></a> [dex\_container\_port](#input\_dex\_container\_port) | The port to serve the dex container on | `number` | `5556` | no |
+| <a name="input_dex_fqdn"></a> [dex\_fqdn](#input\_dex\_fqdn) | The url dex will be available at | `string` | `null` | no |
 | <a name="input_docdb_backup_retention_period"></a> [docdb\_backup\_retention\_period](#input\_docdb\_backup\_retention\_period) | Number of days to retain backups for DocumentDB cluster. | `number` | `7` | no |
 | <a name="input_docdb_instance_class"></a> [docdb\_instance\_class](#input\_docdb\_instance\_class) | The instance class for the Horde DocumentDB cluster. | `string` | `"db.t4g.medium"` | no |
 | <a name="input_docdb_instance_count"></a> [docdb\_instance\_count](#input\_docdb\_instance\_count) | The number of instances to provision for the Horde DocumentDB cluster. | `number` | `2` | no |
@@ -195,7 +208,7 @@ No modules.
 | <a name="input_p4_super_user_password_secret_arn"></a> [p4\_super\_user\_password\_secret\_arn](#input\_p4\_super\_user\_password\_secret\_arn) | Optionally provide the ARN of an AWS Secret for the p4d super user password. | `string` | `null` | no |
 | <a name="input_p4_super_user_username_secret_arn"></a> [p4\_super\_user\_username\_secret\_arn](#input\_p4\_super\_user\_username\_secret\_arn) | Optionally provide the ARN of an AWS Secret for the p4d super user username. | `string` | `null` | no |
 | <a name="input_project_prefix"></a> [project\_prefix](#input\_project\_prefix) | The project prefix for this workload. This is appeneded to the beginning of most resource names. | `string` | `"cgd"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to resources. | `map(any)` | <pre>{<br>  "iac-management": "CGD-Toolkit",<br>  "iac-module": "unreal-horde",<br>  "iac-provider": "Terraform"<br>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to resources. | `map(any)` | <pre>{<br/>  "iac-management": "CGD-Toolkit",<br/>  "iac-module": "unreal-horde",<br/>  "iac-provider": "Terraform"<br/>}</pre> | no |
 | <a name="input_unreal_horde_alb_access_logs_bucket"></a> [unreal\_horde\_alb\_access\_logs\_bucket](#input\_unreal\_horde\_alb\_access\_logs\_bucket) | ID of the S3 bucket for Unreal Horde ALB access log storage. If access logging is enabled and this is null the module creates a bucket. | `string` | `null` | no |
 | <a name="input_unreal_horde_alb_access_logs_prefix"></a> [unreal\_horde\_alb\_access\_logs\_prefix](#input\_unreal\_horde\_alb\_access\_logs\_prefix) | Log prefix for Unreal Horde ALB access logs. If null the project prefix and module name are used. | `string` | `null` | no |
 | <a name="input_unreal_horde_cloudwatch_log_retention_in_days"></a> [unreal\_horde\_cloudwatch\_log\_retention\_in\_days](#input\_unreal\_horde\_cloudwatch\_log\_retention\_in\_days) | The log retention in days of the cloudwatch log group for Unreal Horde. | `string` | `365` | no |
