@@ -140,11 +140,62 @@ resource "aws_ecs_task_definition" "task_definition" {
         image     = "bash"
         essential = false
         // Only run this command if enable_sso is set
-        command = concat([], var.enable_sso ? [
-          "sh",
-          "-c",
-          "echo \"/p4/a\\\t'sso' => 'enabled',\" > ${local.data_path}/sso.sed && sed -i -f ${local.data_path}/sso.sed ${local.data_path}/config.php && rm -rf ${local.data_path}/cache",
-        ] : []),
+        command = (
+          var.config_php_source != null ? [
+            "sh",
+            "-c",
+            "echo $CONFIG_PHP | envsubst | tee ${local.data_path}/config.php && rm -rf ${local.data_path}/cache",
+            ] : (var.enable_sso ? [
+              "sh",
+              "-c",
+              "echo \"/p4/a\\\t'sso' => 'enabled',\" > ${local.data_path}/sso.sed && sed -i -f ${local.data_path}/sso.sed ${local.data_path}/config.php && rm -rf ${local.data_path}/cache",
+          ] : [])
+        )
+
+        secrets = concat(
+          [
+            {
+              name      = "P4D_SUPER",
+              valueFrom = var.super_user_username_secret_arn
+            },
+            {
+              name      = "P4D_SUPER_PASSWD",
+              valueFrom = var.super_user_password_secret_arn
+            }
+          ],
+          var.config_php_source != null ? [
+            {
+              name      = "CONFIG_PHP"
+              valueFrom = var.config_php_source
+            }
+          ] : []
+        )
+        environment = [
+          {
+            name  = "P4CHARSET"
+            value = var.p4charset
+          },
+          {
+            name  = "P4D_PORT",
+            value = var.p4d_port
+          },
+          {
+            name  = "SWARM_HOST" # cannot update naming until the Perforce container image is updated
+            value = var.fully_qualified_domain_name
+          },
+          {
+            name  = "SWARM_REDIS" # cannot update naming until the Perforce container image is updated
+            value = var.existing_redis_connection != null ? var.existing_redis_connection.host : aws_elasticache_cluster.cluster[0].cache_nodes[0].address
+          },
+          {
+            name  = "SWARM_REDIS_PORT" # cannot update naming until the Perforce container image is updated
+            value = var.existing_redis_connection != null ? tostring(var.existing_redis_connection.port) : tostring(aws_elasticache_cluster.cluster[0].cache_nodes[0].port)
+          },
+          {
+            name  = "SWARM_FORCE_EXT"
+            value = "y"
+          }
+        ]
         readonly_root_filesystem = false
         #checkov:skip=CKV_AWS_81: Read-only root filesystem disabled for configuration container requirements
 
