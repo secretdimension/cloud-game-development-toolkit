@@ -471,7 +471,7 @@ variable "p4_code_review_config" {
     super_user_username_secret_arn          = optional(string, null)
     p4_code_review_user_password_secret_arn = optional(string, null)
     p4_code_review_user_username_secret_arn = optional(string, null)
-    enable_sso                              = optional(string, false)
+    enable_sso                              = optional(string, true)
     config_php_source                       = optional(string, null)
 
     # Caching

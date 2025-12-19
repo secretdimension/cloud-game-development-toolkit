@@ -8,7 +8,7 @@ $settings_php = [
 $user_config = include 'config.user.php';
 
 if($user_config == false) {
-    return $gen_config;
-} else {
-    return array_replace_recursive($gen_config, $settings_php, $user_config);
+    $user_config = [];
 }
+
+return array_replace_recursive($gen_config, $settings_php, $user_config);

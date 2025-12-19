@@ -168,7 +168,7 @@ resource "aws_ecs_task_definition" "task_definition" {
         environment = [
           {
             name = "CONFIG_PHP"
-            value = base64encode(templatefile(local.config_php_file, {
+            value = base64encode(templatefile("${path.module}/assets/config.php.tftpl", {
               enable_sso = var.enable_sso,
             }))
           }
