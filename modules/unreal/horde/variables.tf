@@ -69,7 +69,7 @@ variable "vpc_id" {
 variable "image" {
   type        = string
   description = "The Horde Server image to use in the ECS service."
-  default     = "ghcr.io/epicgames/horde-server:latest-bundled"
+  default     = "ghcr.io/epicgames/horde-server:latest"
 }
 
 variable "cluster_name" {
