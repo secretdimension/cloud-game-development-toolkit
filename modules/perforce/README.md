@@ -47,15 +47,19 @@ For a video walkthrough demonstrating how to use this module, see this YouTube V
       certificate, the module allows you to import this into ACM to be used for the other components that will be
       deployed (such as the internal ALB). You may also use Email validation to validate DNS ownership.
 
-- **Existing Perforce Amazon Machine Image (AMI)**
-  - As mentioned in the architecture, an Amazon EC2 instance is used for the P4 Server, and this instance must be be
-      provisioned using an AMI that is configured for Perforce. To expedite this process, we have
+- **Existing Perforce Amazon Machine Images (AMIs)**
+  - **P4 Server AMI**: As mentioned in the architecture, an Amazon EC2 instance is used for the P4 Server, and this
+      instance must be provisioned using an AMI that is configured for Perforce. To expedite this process, we have
       sample [HashiCorp Packer](https://www.packer.io/) templates provided in
       the [AWS Cloud Game Development Toolkit repository](https://github.com/aws-games/cloud-game-development-toolkit/tree/main/assets/packer/perforce/p4-server)
       that you can use to create a Perforce AMI in your AWS Account. **Note:** You must also reference the
       `p4_configure.sh` and `p4_setup.sh` files that are in this directory, as these are used to configure the P4 Commit
       Server. These are already referenced in the `perforce_arm64.pkr.hcl` and `perforce_x86.pkr.hcl` packer templates
       that are available for use.
+  - **P4 Code Review AMI**: If deploying P4 Code Review (Helix Swarm), you must also build an AMI using the Packer
+      template at [assets/packer/perforce/p4-code-review](../../assets/packer/perforce/p4-code-review).
+      See the [P4 Code Review Packer README](../../assets/packer/perforce/p4-code-review/README.md)
+      for detailed build instructions.
 
 ## Examples
 
@@ -63,10 +67,13 @@ For example configurations, please see the [examples](https://github.com/aws-gam
 
 ## Deployment Instructions
 
-1. Create the Perforce AMI in your AWS account using one of the supplied Packer templates. Ensure you use the Packer
-   template that aligns with the architecture type (e.g. arm64) of the EC2 instance you wish to create. On the Terraform
-   side, you may also set this using the `instance_architecture` variable. Ensure your `instance_type` is supported for
-   your desired `instance_architecture`. For a full list of this mapping, see
+1. Create the required AMIs in your AWS account using the supplied Packer templates:
+   - **P4 Server AMI** (required): Use the templates in `assets/packer/perforce/p4-server/`. Choose the template that
+     aligns with the architecture type (e.g. arm64) of the EC2 instance you wish to create.
+   - **P4 Code Review AMI** (if deploying P4 Code Review): Use the template in `assets/packer/perforce/p4-code-review/`.
+
+   On the Terraform side, you may set the architecture using the `instance_architecture` variable. Ensure your
+   `instance_type` is supported for your desired `instance_architecture`. For a full list of this mapping, see
    the [AWS Docs for EC2 Naming Conventions](https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-type-names.html).
    You can also use the interactive chart on Instances by [Vantage](https://instances.vantage.sh/).
 
@@ -191,6 +198,7 @@ packer build perforce_x86.pkr.hcl
 | [aws_security_group.perforce_network_load_balancer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.perforce_web_services_alb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_vpc_security_group_egress_rule.p4_code_review_outbound_to_p4_server](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
+| [aws_vpc_security_group_egress_rule.p4_server_outbound_to_perforce_web_services_alb_https](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
 | [aws_vpc_security_group_egress_rule.perforce_alb_outbound_to_p4_auth](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
 | [aws_vpc_security_group_egress_rule.perforce_alb_outbound_to_p4_code_review](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
 | [aws_vpc_security_group_egress_rule.perforce_nlb_outbound_to_perforce_web_services_alb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
@@ -252,14 +260,15 @@ packer build perforce_x86.pkr.hcl
 | <a name="output_p4_code_review_perforce_cluster_name"></a> [p4\_code\_review\_perforce\_cluster\_name](#output\_p4\_code\_review\_perforce\_cluster\_name) | Name of the ECS cluster hosting P4 Code Review. |
 | <a name="output_p4_code_review_service_security_group_id"></a> [p4\_code\_review\_service\_security\_group\_id](#output\_p4\_code\_review\_service\_security\_group\_id) | Security group associated with the ECS service running P4 Code Review. |
 | <a name="output_p4_code_review_target_group_arn"></a> [p4\_code\_review\_target\_group\_arn](#output\_p4\_code\_review\_target\_group\_arn) | The service target group for the P4 Code Review. |
+| <a name="output_p4_server_admin_password_secret_arn"></a> [p4\_server\_admin\_password\_secret\_arn](#output\_p4\_server\_admin\_password\_secret\_arn) | The ARN of the AWS Secrets Manager secret holding the admin account password. |
+| <a name="output_p4_server_admin_username_secret_arn"></a> [p4\_server\_admin\_username\_secret\_arn](#output\_p4\_server\_admin\_username\_secret\_arn) | The ARN of the AWS Secrets Manager secret holding the admin account username. |
 | <a name="output_p4_server_eip_id"></a> [p4\_server\_eip\_id](#output\_p4\_server\_eip\_id) | The ID of the Elastic IP associated with your P4 Server instance. |
 | <a name="output_p4_server_eip_public_ip"></a> [p4\_server\_eip\_public\_ip](#output\_p4\_server\_eip\_public\_ip) | The public IP of your P4 Server instance. |
 | <a name="output_p4_server_instance_id"></a> [p4\_server\_instance\_id](#output\_p4\_server\_instance\_id) | Instance ID for the P4 Server instance |
 | <a name="output_p4_server_lambda_link_name"></a> [p4\_server\_lambda\_link\_name](#output\_p4\_server\_lambda\_link\_name) | The name of the Lambda link for the P4 Server instance to use with FSxN. |
 | <a name="output_p4_server_private_ip"></a> [p4\_server\_private\_ip](#output\_p4\_server\_private\_ip) | Private IP for the P4 Server instance |
 | <a name="output_p4_server_security_group_id"></a> [p4\_server\_security\_group\_id](#output\_p4\_server\_security\_group\_id) | The default security group of your P4 Server instance. |
-| <a name="output_p4_server_super_user_password_secret_arn"></a> [p4\_server\_super\_user\_password\_secret\_arn](#output\_p4\_server\_super\_user\_password\_secret\_arn) | The ARN of the AWS Secrets Manager secret holding your P4 Server super user's username. |
-| <a name="output_p4_server_super_user_username_secret_arn"></a> [p4\_server\_super\_user\_username\_secret\_arn](#output\_p4\_server\_super\_user\_username\_secret\_arn) | The ARN of the AWS Secrets Manager secret holding your P4 Server super user's password. |
+| <a name="output_p4_server_super_password_secret_arn"></a> [p4\_server\_super\_password\_secret\_arn](#output\_p4\_server\_super\_password\_secret\_arn) | The ARN of the AWS Secrets Manager secret holding the service account (super) password. |
 | <a name="output_shared_application_load_balancer_arn"></a> [shared\_application\_load\_balancer\_arn](#output\_shared\_application\_load\_balancer\_arn) | The ARN of the shared application load balancer. |
 | <a name="output_shared_network_load_balancer_arn"></a> [shared\_network\_load\_balancer\_arn](#output\_shared\_network\_load\_balancer\_arn) | The ARN of the shared network load balancer. |
 <!-- END_TF_DOCS -->
