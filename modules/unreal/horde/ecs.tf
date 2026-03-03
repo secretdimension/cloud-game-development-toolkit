@@ -206,6 +206,7 @@ resource "aws_ecs_task_definition" "unreal_horde_task_definition" {
           },
         } * ${jsonencode(var.extra_server_config)}' > /app/config/server.json
 
+        cat /app/config/server.json
         %{if var.deploy_dex~}
         echo '${yamlencode(local.dex_config)}' > /app/config/dex.yaml
         %{if var.dex_auth_secret_arn != null~}
