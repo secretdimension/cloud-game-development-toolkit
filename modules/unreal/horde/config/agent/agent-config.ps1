@@ -20,6 +20,7 @@ Expand-Archive -LiteralPath C:\HordeAgent.zip -DestinationPath $hordedir -Force
     "Horde" = @{
         "Name" = $instanceid;
         "EnableAwsEc2Support" = $true;
+        "WorkingDir" = "C:\Builds";
     };
 } | ConvertTo-Json -depth 100 | Out-File "$hordedir\appsettings.User.json"
 
