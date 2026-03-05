@@ -20,9 +20,11 @@ Expand-Archive -LiteralPath C:\HordeAgent.zip -DestinationPath $hordedir -Force
     "Horde" = @{
         "Name" = $instanceid;
         "EnableAwsEc2Support" = $true;
-        "WorkingDir" = "C:\Builds";
     };
 } | ConvertTo-Json -depth 100 | Out-File "$hordedir\appsettings.User.json"
+
+# Enable long paths
+New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
 
 # If necessary, fetch the p4trust file
 %{if p4_trust_bucket != null}
