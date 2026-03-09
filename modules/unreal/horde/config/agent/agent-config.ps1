@@ -33,6 +33,8 @@ Read-S3Object -BucketName ${p4_trust_bucket} -Key agent/.p4trust -File $hordedir
 [Environment]::SetEnvironmentVariable("P4TRUST", "$hordedir\p4trust.txt", "Machine")
 %{endif}
 
+setx UE-ZenSharedDataCacheHost "172.31.32.67:8558" /M
+
 # Configure and start the agent
 & "$hordedir\HordeAgent.exe" SetServer -Default -Url="https://${fully_qualified_domain_name}"
 & "$hordedir\HordeAgent.exe" Service Install -Start=false
