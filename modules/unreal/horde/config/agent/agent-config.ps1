@@ -5,6 +5,9 @@
 # Install the necessary dotnet runtime
 choco install -y --no-progress dotnet-${dotnet_runtime_version}-runtime
 
+# Install the aws cli so that we can interact with S3
+choco install -y --no-progress awscli
+
 # Windows doesn't support RBN so we do it manually
 # NetBIOS name max length is 15 bytes so we need to truncate the instance id
 $instanceid = @(Get-EC2InstanceMetadata -Category InstanceId)[0].Substring(2, 15)
