@@ -253,7 +253,7 @@ resource "aws_ssm_document" "ansible_run_document" {
 }
 
 resource "aws_ssm_association" "configure_unreal_horde_agent" {
-  count            = length(var.agents) > 0 ? 1 : 0
+  count            = lookup(var.agents, "Linux", null) ? 1 : 0
   association_name = "ConfigureUnrealHordeAgent"
   name             = aws_ssm_document.ansible_run_document[0].name
   parameters = {
